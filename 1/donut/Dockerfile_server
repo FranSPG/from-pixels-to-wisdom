@@ -1,0 +1,5 @@
+FROM nvcr.io/nvidia/tritonserver:22.12-py3
+
+RUN pip3 install torch torchvision transformers Image sentencepiece>=0.1.99 protobuf==3.20.0
+
+ENTRYPOINT ["tritonserver", "--disable-auto-complete-config", "--model-repository=/model_repository"]
