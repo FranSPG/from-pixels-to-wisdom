@@ -1,7 +1,0 @@
-FROM nvcr.io/nvidia/tritonserver:22.12-py3-sdk
-
-RUN pip install uvicorn fastapi requests Pillow
-
-COPY client.py .
-
-ENTRYPOINT ["uvicorn", "client:app", "--reload", "--port", "8080"]

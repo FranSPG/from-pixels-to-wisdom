@@ -1,6 +1,4 @@
-import gc
 import requests
-import torch.cuda
 
 from PIL import Image
 from tritonclient.utils import *
@@ -104,5 +102,3 @@ def doc_question_answering(request: str, question: str):
     result = query_response.as_numpy('output').tolist()
 
     return result
-
-
