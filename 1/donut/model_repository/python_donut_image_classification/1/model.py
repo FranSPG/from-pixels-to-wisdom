@@ -25,7 +25,6 @@ class TritonPythonModel:
                                                                  return_tensors="pt").input_ids
 
             pixel_values = self.feature_extractor(images=input_image,
-                                                  size=(1, 3, 320, 320),  # Remove this line!
                                                   return_tensors="pt").pixel_values
 
             outputs = self.model.generate(
@@ -44,7 +43,7 @@ class TritonPythonModel:
             sequence = self.feature_extractor.batch_decode(outputs.sequences)[0]
             sequence = sequence.replace(self.feature_extractor.tokenizer.eos_token, "").replace(
                 self.feature_extractor.tokenizer.pad_token, "")
-            sequence = re.sub(r"<.*?>", "", sequence, count=1).strip()  # remove first task start token
+            sequence = re.sub(r"<.*?>", "", sequence, count=1).strip()
             results = self.feature_extractor.token2json(sequence)
 
             inference_response = pb_utils.InferenceResponse(output_tensors=[
