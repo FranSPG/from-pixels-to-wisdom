@@ -1,0 +1,22 @@
+services:
+  triton-server:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile_server
+    shm_size: '3gb'
+    volumes:
+      - './model_repository:/model_repository/'
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]
+    network_mode: host
+  triton-client:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile_client
+    depends_on:
+      - triton-server
+    network_mode: host

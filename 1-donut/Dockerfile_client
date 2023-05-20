@@ -1,0 +1,9 @@
+FROM nvcr.io/nvidia/tritonserver:22.12-py3-sdk
+
+ENV PYTHONUNBUFFERED="1"
+
+RUN pip install --no-cache-dir uvicorn fastapi requests Pillow
+
+COPY client.py .
+
+ENTRYPOINT ["uvicorn", "client:app", "--reload", "--host", "0.0.0.0", "--port", "8080"]
